@@ -1,6 +1,6 @@
 # 🚀 TechEvent - Sistema Integrado de Gestão de Eventos Acadêmicos & Tech
 
-![TechEvent Banner](https://img.shields.value/badge/Status-Em%20Desenvolvimento-orange?style=for-the-badge)
+![TechEvent Banner](https://img.shields.io/badge/status-em_desenvolvimento-yellow.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-18.x-green?style=for-the-badge&logo=nodedotjs)
 ![Express](https://img.shields.io/badge/Express-4.x-black?style=for-the-badge&logo=express)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=for-the-badge&logo=javascript)
