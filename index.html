@@ -1,27 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tech Event - Gestão Acadêmica</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body>
     <div class="app-container">
-        <aside class="sidebar">
-            <h2>Tech Event</h2>
-            <nav>
-                <button onclick="mudarModulo('usuarios')" class="active">Participantes</button>
-                <button onclick="mudarModulo('atividades')">Agenda</button>
-                <button onclick="mudarModulo('inscricoes')">Inscrições</button>
-                <button onclick="mudarModulo('projetos')">Projetos</button>
-                <button onclick="mudarModulo('chamados')">Suporte T.I.</button>
-                <button onclick="mudarModulo('feedbacks')">Avaliações</button>
-            </nav>
-        </aside>
-        <main class="content" id="conteudo-principal"></main>
+      <aside class="sidebar">
+        <h2>Tech Event</h2>
+        <nav>
+          <button data-modulo="usuarios" class="active">Participantes</button>
+          <button data-modulo="atividades">Agenda</button>
+          <button data-modulo="inscricoes">Inscrições</button>
+          <button data-modulo="projetos">Projetos</button>
+          <button data-modulo="chamados">Suporte T.I.</button>
+          <button data-modulo="feedbacks">Avaliações</button>
+        </nav>
+      </aside>
+      <main class="content" id="conteudo-principal"></main>
     </div>
-
-    <script src="js/app.js"></script>
-</body>
+  </body>
 </html>
