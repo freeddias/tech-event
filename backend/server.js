@@ -62,17 +62,13 @@ db.serialize(() => {
     )`);
 });
 
-// ==========================================
-// ROTAS DA API REST
-// ==========================================
+/*  ==========================================
+    ROTAS DA API REST
+    ==========================================  */
 
-app.get('/api/usuarios', (req, res) => {
-    db.all("SELECT * FROM usuarios", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
+/*  ==========================================
+    CREATE
+    ==========================================  */
 app.post('/api/usuarios', (req, res) => {
     const { nome, email, curso, matricula, status } = req.body;
     if (!nome || !email || !curso || !matricula) {
@@ -84,22 +80,6 @@ app.post('/api/usuarios', (req, res) => {
         res.json({ id: this.lastID, nome, email, curso, matricula, status: status || 'Ativo' });
     });
 });
-
-app.delete('/api/usuarios/:id', (req, res) => {
-    db.run(`DELETE FROM usuarios WHERE id = ?`, req.params.id, function(err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ deleted: this.changes });
-    });
-});
-
-
-app.get('/api/atividades', (req, res) => {
-    db.all("SELECT * FROM atividades", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
 app.post('/api/atividades', (req, res) => {
     const { titulo, palestrante, horario, vagas, status } = req.body;
     const sql = `INSERT INTO atividades (titulo, palestrante, horario, vagas, status) VALUES (?, ?, ?, ?, ?)`;
@@ -108,21 +88,6 @@ app.post('/api/atividades', (req, res) => {
         res.json({ id: this.lastID, titulo, palestrante, horario, vagas, status: status || 'Ativo' });
     });
 });
-
-app.delete('/api/atividades/:id', (req, res) => {
-    db.run(`DELETE FROM atividades WHERE id = ?`, req.params.id, function(err) {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json({ deleted: this.changes });
-    });
-});
-
-app.get('/api/inscricoes', (req, res) => {
-    db.all("SELECT * FROM inscricoes", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
 app.post('/api/inscricoes', (req, res) => {
     const { usuario_id, atividade_id, data_hora, status } = req.body;
     const sql = `INSERT INTO inscricoes (usuario_id, atividade_id, data_hora, status) VALUES (?, ?, ?, ?)`;
@@ -131,14 +96,6 @@ app.post('/api/inscricoes', (req, res) => {
         res.json({ id: this.lastID, usuario_id, atividade_id, status: status || 'Confirmado' });
     });
 });
-
-app.get('/api/projetos', (req, res) => {
-    db.all("SELECT * FROM projetos", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
 app.post('/api/projetos', (req, res) => {
     const { titulo, integrantes, repositorio, status } = req.body;
     const sql = `INSERT INTO projetos (titulo, integrantes, repositorio, status) VALUES (?, ?, ?, ?)`;
@@ -147,14 +104,6 @@ app.post('/api/projetos', (req, res) => {
         res.json({ id: this.lastID, titulo, integrantes, repositorio, status: status || 'Pendente' });
     });
 });
-
-app.get('/api/chamados', (req, res) => {
-    db.all("SELECT * FROM chamados", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
 app.post('/api/chamados', (req, res) => {
     const { solicitante, descricao, categoria, status } = req.body;
     const sql = `INSERT INTO chamados (solicitante, descricao, categoria, status) VALUES (?, ?, ?, ?)`;
@@ -163,14 +112,6 @@ app.post('/api/chamados', (req, res) => {
         res.json({ id: this.lastID, solicitante, descricao, categoria, status: status || 'Aberto' });
     });
 });
-
-app.get('/api/feedbacks', (req, res) => {
-    db.all("SELECT * FROM feedbacks", [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
-});
-
 app.post('/api/feedbacks', (req, res) => {
     const { atividade_id, nota, comentario, status } = req.body;
     const sql = `INSERT INTO feedbacks (atividade_id, nota, comentario, status) VALUES (?, ?, ?, ?)`;
@@ -179,14 +120,145 @@ app.post('/api/feedbacks', (req, res) => {
         res.json({ id: this.lastID, atividade_id, nota, comentario, status: status || 'Publicado' });
     });
 });
+
+/*  ==========================================
+    READ
+    ==========================================  */
+app.get('/api/usuarios', (req, res) => {
+    db.all("SELECT * FROM usuarios", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+app.get('/api/atividades', (req, res) => {
+    db.all("SELECT * FROM atividades", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+app.get('/api/inscricoes', (req, res) => {
+    db.all("SELECT * FROM inscricoes", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+app.get('/api/projetos', (req, res) => {
+    db.all("SELECT * FROM projetos", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+app.get('/api/chamados', (req, res) => {
+    db.all("SELECT * FROM chamados", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+app.get('/api/feedbacks', (req, res) => {
+    db.all("SELECT * FROM feedbacks", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+/*  ==========================================
+    PUT (UPDATE)
+    ==========================================  */
+app.put('/api/usuarios/:id', (req, res) => {
+    const { nome, email, curso, matricula, status } = req.body;
+    const sql = `UPDATE usuarios SET nome = ?, email = ?, curso = ?, matricula = ?, status = ? WHERE id = ?`;
+    db.run(sql, [nome, email, curso, matricula, status, req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes });
+    });
+});
+
+app.put('/api/atividades/:id', (req, res) => {
+    const { titulo, palestrante, horario, vagas, status } = req.body;
+    const sql = `UPDATE atividades SET titulo = ?, palestrante = ?, horario = ?, vagas = ?, status = ? WHERE id = ?`;
+    db.run(sql, [titulo, palestrante, horario, vagas, status, req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes });
+    });
+});
+
+app.put('/api/inscricoes/:id', (req, res) => {
+    const { usuario_id, atividade_id, data_hora, status } = req.body;
+    const sql = `UPDATE inscricoes SET usuario_id = ?, atividade_id = ?, data_hora = ?, status = ? WHERE id = ?`;
+    db.run(sql, [usuario_id, atividade_id, data_hora, status, req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes });
+    });
+});
+
+app.put('/api/projetos/:id', (req, res) => {
+    const { titulo, integrantes, repositorio, status } = req.body;
+    const sql = `UPDATE projetos SET titulo = ?, integrantes = ?, repositorio = ?, status = ? WHERE id = ?`;
+    db.run(sql, [titulo, integrantes, repositorio, status, req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes });
+    });
+});
+
+app.put('/api/chamados/:id', (req, res) => {
+    const { solicitante, descricao, categoria, status } = req.body;
+    const sql = `UPDATE chamados SET solicitante = ?, descricao = ?, categoria = ?, status = ? WHERE id = ?`;
+    db.run(sql, [solicitante, descricao, categoria, status, req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes });
+    });
+});
+
+app.put('/api/feedbacks/:id', (req, res) => {
+    const { atividade_id, nota, comentario, status } = req.body;
+    const sql = `UPDATE feedbacks SET atividade_id = ?, nota = ?, comentario = ?, status = ? WHERE id = ?`;
+    db.run(sql, [atividade_id, nota, comentario, status, req.params.id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes });
+    });
+});
+/*  ==========================================
+    DELETE
+    ==========================================  */
+app.delete('/api/usuarios/:id', (req, res) => {
+    db.run(`DELETE FROM usuarios WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ deleted: this.changes });
+    });
+});
+app.delete('/api/atividades/:id', (req, res) => {
+    db.run(`DELETE FROM atividades WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ deleted: this.changes });
+    });
+});
 app.delete('/api/feedbacks/:id', (req, res) => {
     db.run(`DELETE FROM feedbacks WHERE id = ?`, req.params.id, function(err) {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ deleted: this.changes });
     });
 });
+app.delete('/api/inscricoes/:id', (req, res) => {
+    db.run(`DELETE FROM inscricoes WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ deleted: this.changes });
+    });
+});
+app.delete('/api/projetos/:id', (req, res) => {
+    db.run(`DELETE FROM projetos WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ deleted: this.changes });
+    });
+});
+app.delete('/api/chamados/:id', (req, res) => {
+    db.run(`DELETE FROM chamados WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ deleted: this.changes });
+    });
+});
 
-// Inicialização do Servidor
+/*  ==========================================
+    INICIALIZAÇÃO DO SERVIDOR
+    ==========================================  */
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT} (http://localhost:${PORT})`);
 });
