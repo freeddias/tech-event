@@ -179,6 +179,12 @@ app.post('/api/feedbacks', (req, res) => {
         res.json({ id: this.lastID, atividade_id, nota, comentario, status: status || 'Publicado' });
     });
 });
+app.delete('/api/feedbacks/:id', (req, res) => {
+    db.run(`DELETE FROM feedbacks WHERE id = ?`, req.params.id, function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ deleted: this.changes });
+    });
+});
 
 // Inicialização do Servidor
 app.listen(PORT, () => {

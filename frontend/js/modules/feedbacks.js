@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:3000/api';
+import { deletarRegistro } from '../app.js';
 export async function renderizarModuloFeedbacks(container, tituloModulo) {
     container.innerHTML = `
         <div class="card">
@@ -26,6 +27,12 @@ export async function renderizarModuloFeedbacks(container, tituloModulo) {
     `;
 
     carregarFeedbacks();
+    window.deletarUsuarioGlobal = async function (id) {
+        const sucesso = await deletarRegistro('feedbacks', id);
+        if (sucesso) {
+            carregarFeedbacks(); // Atualiza a tabela se a exclusão deu certo
+        }
+    };
 
     document.getElementById('form-feedback').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -60,7 +67,7 @@ export async function carregarFeedbacks() {
             <td>${f.nota}</td>
             <td>${f.comentario}</td>
             <td><span class="badge">${f.status}</span></td>
-            <td><button onclick="deletarRegistro('feedbacks', ${f.id})" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Excluir</button></td>
+            <td><button onclick="deletarUsuarioGlobal(${f.id})" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Excluir</button></td>
         </tr>
     `).join('');
 }

@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:3000/api';
+import { deletarRegistro } from '../app.js';
 export async function renderizarModuloParticipantes(container, tituloModulo) {
     container.innerHTML = `
         <div class="card">
@@ -26,6 +27,14 @@ export async function renderizarModuloParticipantes(container, tituloModulo) {
         </div>
     `;
     carregarUsuarios();
+    window.deletarUsuarioGlobal = async function (id) {
+        const sucesso = await deletarRegistro('usuarios', id);
+        if (sucesso) {
+            carregarUsuarios(); // Atualiza a tabela se a exclusão deu certo
+        }
+    };
+
+
     document.getElementById('form-usuario').addEventListener('submit', async (e) => {
         e.preventDefault();
         const payload = {
@@ -56,7 +65,7 @@ async function carregarUsuarios() {
             <td>${u.email}</td>
             <td>${u.curso}</td>
             <td><span class="badge">${u.status}</span></td>
-            <td><button onclick="deletarRegistro('usuarios', ${u.id})" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Excluir</button></td>
+            <td><button onclick="deletarUsuarioGlobal(${u.id})" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Excluir</button></td>
         </tr>
     `).join('');
 }

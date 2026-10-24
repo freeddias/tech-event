@@ -42,3 +42,24 @@ function carregarModuloPorNome(modulo) {
             break;
     }
 }
+
+export async function deletarRegistro(recurso, id) {
+    if (confirm('Tem certeza que deseja excluir este registro?')) {
+        try {
+            const res = await fetch(`${API_URL}/${recurso}/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (res.ok) {
+                return true; // Sucesso
+            } else {
+                alert('Erro ao excluir o registro.');
+                return false;
+            }
+        } catch (error) {
+            console.error('Erro na requisição de exclusão:', error);
+            return false;
+        }
+    }
+    return false;
+}
