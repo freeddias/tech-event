@@ -1,7 +1,10 @@
 // Importação dos módulos específicos de cada dupla/seção
 import { renderizarModuloParticipantes } from './modules/participantes.js';
-import { renderizarModuloFeedbacks } from './modules/avaliacao.js';
-import { renderizarModuloChamados } from './modules/suporte.js';
+import { renderizarModuloAtividades } from './modules/atividades.js';
+import { renderizarModuloInscricoes } from './modules/inscricoes.js';
+import { renderizarModuloFeedbacks } from './modules/feedbacks.js';
+import { renderizarModuloChamados } from './modules/chamados.js';
+import { renderizarModuloProjetos } from './modules/projetos.js';
 
 const API_URL = 'http://localhost:3000/api';
 
@@ -24,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function carregarModuloPorNome(modulo) {
     const container = document.getElementById('conteudo-principal');
 
-       switch (modulo) {
+    switch (modulo) {
         case 'usuarios': renderizarModuloParticipantes(container, 'Gestão de Participantes');
             break;
         case 'atividades': renderizarModuloAtividades(container, 'Agenda de Atividades');

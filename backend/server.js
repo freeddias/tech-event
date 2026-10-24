@@ -16,7 +16,6 @@ const db = new sqlite3.Database('./techevent.sqlite', (err) => {
     }
 });
 db.serialize(() => {
-    // 1. Participantes
     db.run(`CREATE TABLE IF NOT EXISTS usuarios (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT NOT NULL,

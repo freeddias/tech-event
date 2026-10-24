@@ -1,6 +1,3 @@
-/* ============================================================
-   FONTES E DECLARAÇÃO DE RECURSOS
-   ============================================================ */
 @font-face {
   font-family: 'Outfit';
   font-style: normal;
@@ -18,10 +15,6 @@
   src: url('/fonts/syne-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
-/* ============================================================
-   VARIÁVEIS SISTÊMICAS DE DESIGN
-   ============================================================ */
 :root {
   --black-950: #070707;
   --black-900: #0c0c0c;
@@ -48,25 +41,16 @@
   --shadow-panel: 0 0 0 1px var(--border), 0 20px 50px rgba(0, 0, 0, 0.45);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
-
-/* ============================================================
-   RESET & CONFIGURAÇÕES BASE
-   ============================================================ */
-*,
-*::before,
-*::after {
+*,*::before,*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-html,
-body {
+html,body {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
-
 body {
   font-family: var(--font-ui);
   background: var(--black-950);
@@ -74,47 +58,32 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
-button,
-input,
-textarea,
-select {
+button,input,textarea,select {
   font: inherit;
   color: inherit;
   border: none;
   background: none;
 }
-
 button {
   cursor: pointer;
 }
-
-ul,
-ol {
+ul,ol {
   list-style: none;
 }
-
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--black-600);
   border-radius: 999px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background: var(--orange-500);
 }
-
-/* ============================================================
-   ESTRUTURA PRINCIPAL DA APLICAÇÃO (APP SHELL)
-   ============================================================ */
 .app-container {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
@@ -125,10 +94,6 @@ ol {
     var(--black-950);
   position: relative;
 }
-
-/* ============================================================
-   SIDEBAR (NAVEGAÇÃO LATERAL)
-   ============================================================ */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -140,7 +105,6 @@ ol {
   overflow: hidden;
   z-index: 30;
 }
-
 .sidebar h2 {
   height: var(--header-height);
   padding: 0 16px;
@@ -154,12 +118,10 @@ ol {
   letter-spacing: -0.02em;
   color: var(--text-primary);
 }
-
 .sidebar h2::after {
   content: "!";
   color: var(--orange-500);
 }
-
 .sidebar nav {
   flex: 1 1 auto;
   min-height: 0;
@@ -174,8 +136,6 @@ ol {
   flex-direction: column;
   gap: 2px;
 }
-
-/* Botões do Menu da Sidebar (Canais) */
 .sidebar nav button {
   width: 100%;
   display: flex;
@@ -189,7 +149,6 @@ ol {
   text-align: left;
   transition: background 0.15s, color 0.15s;
 }
-
 .sidebar nav button::before {
   content: "#";
   color: var(--text-muted);
@@ -199,26 +158,19 @@ ol {
   display: grid;
   place-items: center;
 }
-
 .sidebar nav button:hover {
   background: rgba(255, 255, 255, 0.04);
   color: var(--text-primary);
 }
-
 .sidebar nav button.active {
   background: linear-gradient(90deg, rgba(255, 61, 0, 0.22), rgba(255, 61, 0, 0.08));
   color: var(--text-primary);
   box-shadow: inset 3px 0 0 var(--orange-500);
   font-weight: 600;
 }
-
 .sidebar nav button.active::before {
   color: var(--orange-400);
 }
-
-/* ============================================================
-   ÁREA DE CONTEÚDO PRINCIPAL
-   ============================================================ */
 .content {
   display: flex;
   flex-direction: column;
@@ -229,7 +181,6 @@ ol {
   padding: 24px;
   -webkit-overflow-scrolling: touch;
 }
-
 .content h2 {
   font-family: var(--font-brand);
   font-size: 1.4rem;
@@ -241,15 +192,10 @@ ol {
   align-items: center;
   gap: 8px;
 }
-
 .content h2::before {
   content: "#";
   color: var(--orange-500);
 }
-
-/* ============================================================
-   PAINÉIS E CARDS (SEGUINDO USERS-CREATE-CARD / KANBAN-CARD)
-   ============================================================ */
 .card {
   background: var(--black-850);
   border: 1px solid var(--border);
@@ -258,7 +204,6 @@ ol {
   margin-bottom: 20px;
   box-shadow: var(--shadow-panel);
 }
-
 .card h3 {
   font-family: var(--font-brand);
   font-size: 1.05rem;
@@ -269,20 +214,13 @@ ol {
   align-items: center;
   gap: 8px;
 }
-
-/* ============================================================
-   FORMULÁRIOS E INPUTS (PADRÃO AUTH / KANBAN COMPOSER)
-   ============================================================ */
 form {
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-bottom: 10px;
 }
-
-input,
-select,
-textarea {
+input,select,textarea {
   width: 100%;
   padding: 12px 14px;
   border-radius: var(--radius);
@@ -293,24 +231,16 @@ textarea {
   font-size: 0.9rem;
   transition: border-color 0.15s;
 }
-
-input::placeholder,
-textarea::placeholder {
+input::placeholder, textarea::placeholder {
   color: var(--text-muted);
 }
-
-input:focus,
-select:focus,
-textarea:focus {
+input:focus, select:focus, textarea:focus {
   border-color: rgba(255, 61, 0, 0.55);
 }
-
 select option {
   background-color: var(--black-800);
   color: var(--text-primary);
 }
-
-/* Botão Submeter Principal (Estilo auth-submit / send-btn) */
 button.btn-submit {
   margin-top: 4px;
   padding: 12px 16px;
@@ -325,19 +255,13 @@ button.btn-submit {
   gap: 6px;
   transition: background 0.15s;
 }
-
 button.btn-submit:hover:not(:disabled) {
   background: var(--orange-400);
 }
-
 button.btn-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-/* ============================================================
-   TABELAS E LISTAGENS
-   ============================================================ */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -345,14 +269,11 @@ table {
   font-size: 0.9rem;
   color: var(--text-secondary);
 }
-
-th,
-td {
+th,td {
   padding: 12px 14px;
   text-align: left;
   border-bottom: 1px solid var(--border);
 }
-
 th {
   background: var(--black-800);
   color: var(--text-muted);
@@ -361,14 +282,9 @@ th {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-
 tr:hover td {
   background: rgba(255, 255, 255, 0.025);
 }
-
-/* ============================================================
-   BADGES & PILLS DE STATUS (ESTILO ROLE-PILL)
-   ============================================================ */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -383,15 +299,10 @@ tr:hover td {
   letter-spacing: 0.04em;
   border: 1px solid rgba(255, 61, 0, 0.35);
 }
-
-/* ============================================================
-   RESPONSIVIDADE (MOBILE ADAPTATION SEGUINDO INDEX.CSS)
-   ============================================================ */
 @media (max-width: 860px) {
   .app-container {
     grid-template-columns: 1fr;
   }
-
   .sidebar {
     position: fixed;
     inset: 0 auto 0 0;
@@ -400,18 +311,14 @@ tr:hover td {
     transition: transform 0.22s ease;
     box-shadow: none;
   }
-
   .app-container.sidebar-open .sidebar {
     transform: translateX(0);
     box-shadow: 12px 0 40px rgba(0, 0, 0, 0.55);
   }
-
   .content {
     padding: 16px;
   }
-
-  th,
-  td {
+  th,td {
     padding: 10px 8px;
     font-size: 0.82rem;
   }
